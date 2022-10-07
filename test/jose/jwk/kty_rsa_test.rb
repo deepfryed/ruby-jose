@@ -6,6 +6,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   PUBLIC_JWK_JSON = "{\"e\":\"AQAB\",\"kty\":\"RSA\",\"n\":\"6zyrhQgzZOaeauWOFbfhnv8o7F9y1iqZZk1ILqq72UuXHl1vVjwOpD5f4GQ8JMbWtH-qOjRvUj5suy8wWq-rRVp8lHkpZClosTbMoYFI9UxfVYMA45-xnZfrFy3w9obmDWhfLGN_KSeeM4X_rErmXjMi-T2sBX_0yySbPiFqLOU\"}"
 
   def test_from_binary_and_to_binary
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     secret_jwk = JOSE::JWK.from_binary(SECRET_JWK_JSON)
     public_jwk = JOSE::JWK.from_binary(PUBLIC_JWK_JSON)
     assert_equal SECRET_JWK_JSON, JOSE::JWK.to_binary(secret_jwk)
@@ -14,6 +16,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_from_key_and_to_key
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     secret_jwk = JOSE::JWK.from_binary(SECRET_JWK_JSON)
     public_jwk = JOSE::JWK.from_binary(PUBLIC_JWK_JSON)
     secret_key = JOSE::JWK.to_key(secret_jwk)
@@ -23,6 +27,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_generate_key
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     jwk1 = JOSE::JWK.generate_key([:rsa, 128])
     jwk2 = JOSE::JWK.generate_key([:rsa, 128, 13])
     jwk3 = JOSE::JWK.generate_key(jwk2)
@@ -32,6 +38,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_block_encryptor
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     RSAGenerator.cache do
       plain_jwk = JOSE::JWK.from(SECRET_JWK_JSON)
       assert_equal JOSE::Map['alg' => 'RSA-OAEP', 'enc' => 'A128GCM'], JOSE::JWK.block_encryptor(plain_jwk)
@@ -41,6 +49,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_signer
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     RSAGenerator.cache do
       plain_jwk = JOSE::JWK.from(SECRET_JWK_JSON)
       assert_equal JOSE::Map['alg' => 'RS256'], JOSE::JWK.signer(plain_jwk)
@@ -52,6 +62,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_verifier
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     RSAGenerator.cache do
       plain_jwk = JOSE::JWK.from(SECRET_JWK_JSON)
       assert_equal ['PS256', 'PS384', 'PS512', 'RS256', 'RS384', 'RS512'], JOSE::JWK.verifier(plain_jwk)
@@ -61,6 +73,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_key_encryptor
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     RSAGenerator.cache do
       secret_jwk = JOSE::JWK.from_binary(SECRET_JWK_JSON)
       key_encryptor = secret_jwk.kty.key_encryptor(secret_jwk.fields, 'test')
@@ -69,6 +83,8 @@ class JOSE::JWK::KTY_RSATest < Minitest::Test
   end
 
   def test_sfm_and_crt
+    skip("not available in ruby ~> 3.x") if RUBY_VERSION =~ /^3\./
+
     RSAGenerator.cache do
       jwk_crt = JOSE::JWK.from_binary(SECRET_JWK_JSON)
       jwk_sfm = jwk_crt.to_map.except('dp', 'dq', 'p', 'q', 'qi')

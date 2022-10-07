@@ -45,7 +45,7 @@ class JOSE::JWATest < Minitest::Test
           :kty => [
             'EC',
             'OKP',
-            'RSA',
+          # 'RSA',  not available in newer OpenSSL versions.
             'oct'
           ],
           :kty_EC_crv => [
